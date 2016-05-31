@@ -68,6 +68,7 @@
         @Html.TextBoxFor(a => a.ConfirmPwd, new { @type = "password", @alt = "password again", @id = "passwordagain", @placeholder = "确认密码" })
         @Html.ValidationMessageFor(m => m.ConfirmPwd)
 
+        <span>已有账户?</span> 请<a href="@Url.Action("Login", "Account")">登录</a>
         <span id="message"></span>
         <button type="submit">立即注册!</button>
     </div>
