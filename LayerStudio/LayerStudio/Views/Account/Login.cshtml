@@ -50,9 +50,11 @@
 
         @Html.Label("email", "邮箱/手机号")
         @Html.TextBoxFor(a=>a.UserName,new { @type = "text" ,@id = "email", @placeholder = "邮箱/手机号"})
+        @Html.ValidationMessageFor(m => m.UserName)
 
         @Html.Label("password", "密码")
         @Html.TextBoxFor(a => a.PassWord, new { @type = "password", @id = "email", @placeholder = "密码" })
+        @Html.ValidationMessageFor(m => m.PassWord)
 
         <span>还未注册?</span> 请<a href="@Url.Action("Register", "Account")">注 册</a>
         <span id="message"></span>
