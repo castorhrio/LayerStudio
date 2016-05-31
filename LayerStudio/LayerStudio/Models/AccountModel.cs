@@ -14,7 +14,7 @@ namespace LayerStudio.Models
         [Required(ErrorMessage = "<span><img src=\"/Themes/img/tishi.png\">请输入用户名</span>")]
         [RegularExpression(@"(^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$)|(^1\d{10}$)"
 , ErrorMessage = "<span><img src=\"/Themes/img/tishi.png\">手机号或邮箱格式不对</span>")]
-        [Remote("VarifyAccount", "Account", ErrorMessage = "<span><img src=\"/Themes/img/tishi.png\">该账号已注册</span>")]
+        [Remote("VarifyAccount", "Account", ErrorMessage = "<span><img src=\"/Themes/img/tishi.png\">该账号尚未注册</span>")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "<span><img src=\"/Themes/img/tishi.png\">请输入密码</span>")]
