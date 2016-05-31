@@ -11,6 +11,8 @@ namespace LayerStudio.Data.BLL
 {
     public class AccountBLL
     {
+        public Account user = new Account();
+
         public bool Insert(Account model)
         {
             model.ID = StringHelper.ConvertGuid();
@@ -38,6 +40,32 @@ namespace LayerStudio.Data.BLL
             }
 
             return false;
+        }
+
+        public bool VerifyAccount(string account)
+        {
+            return new CommonUserDAL().VerifyAccount(account);
+        }
+
+        public bool VerifyPassword(string account, string pwd)
+        {
+            CommonUserDAL dal = new CommonUserDAL();
+            user = dal.GetUserByAccount(account);
+            if (user != null)
+            {
+                var md5 = StringHelper.GetMd5Str(pwd);
+                if (user.Password == md5)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public Account GetUser(string account)
+        {
+            return new CommonUserDAL().GetUserByAccount(account);
         }
     }
 }

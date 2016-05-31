@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LayerStudio.Common.Helper
 {
-    public class StringHelper
+    public static class StringHelper
     {
         //mysql不支持guid
         public static string ConvertGuid()
@@ -22,6 +22,23 @@ namespace LayerStudio.Common.Helper
             string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(ConvertString)), 4, 8);
             t2 = t2.Replace("-", "");
             return t2.ToUpper();
+        }
+
+        //空或null判断
+        public static bool IsNullOrEmpty<T>(this T data)
+        {
+            if (data == null)
+                return true;
+            if (data is string)
+            {
+                return string.IsNullOrEmpty(data.ToString().Trim());
+            }
+            return data is DBNull;
+        }
+
+        public static bool IsNullOrEmpty(this string text)
+        {
+            return text == null || string.IsNullOrEmpty(text.Trim());
         }
     }
 }

@@ -135,9 +135,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Themes\img\allow.png" />
     <Content Include="Themes\img\bg.jpg" />
     <Content Include="Themes\img\lock_fill.svg" />
+    <Content Include="Themes\img\mission.png" />
+    <Content Include="Themes\img\play.png" />
     <Content Include="Themes\img\tishi.png" />
+    <Content Include="Themes\img\touch.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +159,8 @@
     <Content Include="packages.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\Success.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

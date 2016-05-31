@@ -35,57 +35,57 @@
     </style>
 </head>
 <body>
-    <form class="register">
+@using(Ajax.BeginForm("Register", "Account",new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "OnSuccess"
+}))
+{
+    <div class="register">
         <h1>
-            欢迎注册！ <img src="/Themes/img/lock_fill.svg" class="secure"/>
+            欢迎注册！ <img src="/Themes/img/lock_fill.svg" class="secure" />
         </h1>
-        @using (Ajax.BeginForm("Register", "Account", new AjaxOptions
-        {
-            HttpMethod = "Post",
-            OnSuccess = "OnSuccess"
-        }))
-        {
-            @Html.Label("email", "邮箱")
-            @Html.TextBoxFor(a => a.Account, new { @type = "email", @alt = "email", @id = "email", @placeholder = "邮箱" })
+        @Html.Label("email", "邮箱/手机号")
+        @Html.TextBoxFor(a => a.Account, new { @type = "text", @alt = "email", @id = "email", @placeholder = "邮箱/手机号" })
+        @Html.ValidationMessageFor(m => m.Account)
 
-            @Html.Label("firstname", "昵称")
-            @Html.TextBoxFor(a => a.NickName, new { @type = "text", @alt = "first name", @id = "firstname", @placeholder = "昵称" })
+        @*@Html.Label("firstname", "昵称")
+        @Html.TextBoxFor(a => a.NickName, new { @type = "text", @alt = "first name", @id = "firstname", @placeholder = "昵称" })
+        @Html.ValidationMessageFor(m => m.NickName)*@
 
-            @Html.Label("firstname", "验证码")
-            @Html.TextBoxFor(a => a.Code, new { @type = "text", @alt = "first name", @id = "firstname", @placeholder = "验证码"})
-            <div class="pic">
-                <img id="valiCode" src="@Url.Action("GetValidateCode", "Account")" style="cursor: pointer" onclick="changeCode()">
-            </div>
+        @Html.Label("firstname", "验证码")
+        @Html.TextBoxFor(a => a.Code, new { @type = "text", @alt = "first name", @id = "firstname", @placeholder = "验证码" })
+        <div class="pic">
+            <img id="valiCode" src="@Url.Action("GetValidateCode", "Account")" style="cursor: pointer" onclick="changeCode()">
+        </div>
+        @Html.ValidationMessageFor(m => m.Code)
 
-            @Html.Label("password", "密码")
-            @Html.TextBoxFor(a => a.PassWord, new { @type = "password", @alt = "password", @id = "password", @placeholder = "密码" })
+        @Html.Label("password", "密码")
+        @Html.TextBoxFor(a => a.PassWord, new { @type = "password", @alt = "password", @id = "password", @placeholder = "密码" })
+        @Html.ValidationMessageFor(m => m.PassWord)
 
-            @Html.Label("password", "确认密码")
-            @Html.TextBoxFor(a => a.ConfirmPwd, new { @type = "password", @alt = "password again", @id = "passwordagain", @placeholder = "确认密码" })
+        @Html.Label("password", "确认密码")
+        @Html.TextBoxFor(a => a.ConfirmPwd, new { @type = "password", @alt = "password again", @id = "passwordagain", @placeholder = "确认密码" })
+        @Html.ValidationMessageFor(m => m.ConfirmPwd)
 
-            <button type="submit" alt="Sign Up" id="button">立即注册!</button>
-        }
-
-        @*<label for="email">Email</label>*@
-        @*<input type="email" alt="email" id="email" placeholder="tom@jerry.com" required="">*@
-
-        @*<label for="firstname">First Name</label>
-        <input type="text" alt="first name" id="firstname" placeholder="First Name" required="">
-
-        <label for="lastname">Last Name</label>
-        <input type="text" alt="last name" id="lastname" placeholder="Last Name" required="">
-
-        <label for="password">Password</label>
-        <input type="password" alt="password" id="password" placeholder="Password" required="">
-
-        <label for="passwordagain">Password Again</label>
-        <input type="password" alt="password again" id="passwordagain" placeholder="Password Again" required="">*@
-    </form>
+        <span id="message"></span>
+        <button type="submit">立即注册!</button>
+    </div>
+}
 </body>
 </html>
 
 <script>
     function changeCode() {
         $("#valiCode").attr("src", "@Url.Action("GetValidateCode", "Account")?S=" + (new Date()).getTime());
+    }
+
+    function OnSuccess(data) {
+        if (data.Result) {
+            window.location.href = data.retUrl;
+        } else {
+            $("#message").empty();
+            $("#message").append("<span><img src=\"/Themes/img/tishi.png\">" + data.Message + "</span>");
+        }
     }
 </script>

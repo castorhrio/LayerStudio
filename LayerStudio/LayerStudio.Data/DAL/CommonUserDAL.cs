@@ -99,5 +99,49 @@ namespace LayerStudio.Data.DAL
 
             return null;
         }
+
+        public bool VerifyAccount(string account)
+        {
+            try
+            {
+                using (var entities = new LayerStudioEntities())
+                {
+                    var search =
+                        entities.Accounts.Where(a => a.Status == 1 && (a.Phone == account || a.Email == account));
+                    if (search.Any())
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message,e);
+            }
+
+            return false;
+        }
+
+        public Account GetUserByAccount(string account)
+        {
+            try
+            {
+                using (var entities = new LayerStudioEntities())
+                {
+                    var search =
+                        entities.Accounts.Where(a => a.Status == 1 && (a.Phone == account || a.Email == account));
+                    if (search.Any())
+                    {
+                        return search.FirstOrDefault();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message,e);
+            }
+
+            return null;
+        }
     }
 }

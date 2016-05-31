@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Web.Optimization
+@model LayerStudio.Models.AccountModel
 @{
     Layout = null;
 }
@@ -7,8 +8,33 @@
 
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <title>登录</title>
+    @Styles.Render("~/Content/basecss")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <style type="text/css">
+        html {
+            background: url('/Themes/img/bg.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        body {
+            background: none;
+        }
+
+        .login{
+            margin-top: 100px;
+            background: rgba(251,251,251,0.5);
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
 @using (Ajax.BeginForm("Login", "Account", new AjaxOptions
@@ -17,30 +43,31 @@
     OnSuccess = "OnSuccess"
 }))
 {
-    <div>
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">用户名</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">密码</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Example block-level help text here.</p>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Check me out
-                </label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+    <div class="login">
+        <h1>
+            登录 <img src="/Themes/img/lock_fill.svg" class="secure"/>
+        </h1>
+
+        @Html.Label("email", "邮箱/手机号")
+        @Html.TextBoxFor(a=>a.UserName,new { @type = "text" ,@id = "email", @placeholder = "邮箱/手机号"})
+
+        @Html.Label("password", "密码")
+        @Html.TextBoxFor(a => a.PassWord, new { @type = "password", @id = "email", @placeholder = "密码" })
+
+        <span id="message"></span>
+        <button type="submit">登 录</button>
     </div>
 }
-
 </body>
 </html>
+
+<script>
+    function OnSuccess(data) {
+        if (data.Result) {
+            window.location.href = data.retUrl;
+        } else {
+            $("#message").empty();
+            $("#message").append("<span><img src=\"/Themes/img/tishi.png\">" + data.Message + "</span>");
+        }
+    }
+</script>
